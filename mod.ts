@@ -1,1 +1,1 @@
-export * from "./DebounceMicrotask.ts";
+export * from "./src/DebounceMicrotask.ts";
