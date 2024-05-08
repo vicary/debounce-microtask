@@ -4,6 +4,9 @@ const enqueue = typeof queueMicrotask === "function"
   ? queueMicrotask
   : (fn: Function<unknown[], unknown>): unknown => Promise.resolve().then(fn);
 
+/**
+ * Options for the debounceMicrotask function.
+ */
 export type Options = {
   /**
    * Maximum consecutive microtasks to push before bailing out for infinite

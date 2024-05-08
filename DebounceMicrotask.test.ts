@@ -1,7 +1,7 @@
 import { assertThrows } from "@std/assert";
 import { describe, it } from "@std/testing/bdd";
 import { assertSpyCall, assertSpyCalls, spy } from "@std/testing/mock";
-import { debounceMicrotask } from "./index.ts";
+import { debounceMicrotask } from "./DebounceMicrotask.ts";
 
 describe("debounceMicrotask", () => {
   it("should debounce", async () => {

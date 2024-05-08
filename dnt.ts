@@ -1,15 +1,16 @@
-// Bundle src/index.ts into both ESM and CJS format.
-import { build, emptyDir } from "https://deno.land/x/dnt/mod.ts";
+// Bundle src/mod.ts into both ESM and CJS format.
+import { build, emptyDir } from "@deno/dnt";
 import pkg from "./deno.json" with { type: "json" };
 
 await emptyDir("./dnt");
 
 await build({
-  entryPoints: ["./index.ts"],
+  entryPoints: ["./mod.ts"],
   outDir: "./dnt",
   shims: {
-    deno: false,
+    deno: "dev",
   },
+  importMap: "./deno.json",
   package: {
     name: "@vicary/debounce-microtask",
     version: pkg.version,
