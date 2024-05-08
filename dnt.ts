@@ -1,18 +1,18 @@
-// Bundle src/mod.ts into both ESM and CJS format.
+// Bundle src/DebounceMicrotask.ts into both ESM and CJS format.
 import { build, emptyDir } from "@deno/dnt";
 import pkg from "./deno.json" with { type: "json" };
 
 await emptyDir("./dnt");
 
 await build({
-  entryPoints: ["./mod.ts"],
+  entryPoints: ["./DebounceMicrotask.ts"],
   outDir: "./dnt",
   shims: {
     deno: "dev",
   },
   importMap: "./deno.json",
   package: {
-    name: "@vicary/debounce-microtask",
+    name: "debounce-microtasks", // debounce-microtask is taken and abandoned.
     version: pkg.version,
     description: "Debounce a function using microtasks instead of timers.",
     license: "MIT",
