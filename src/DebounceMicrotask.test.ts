@@ -26,7 +26,7 @@ describe("debounceMicrotask", () => {
 
     debounced();
 
-    await Promise.resolve().then();
+    await Promise.resolve();
 
     assertThrows(() => debounced(), `Maximum debounce limit reached.`);
   });
@@ -67,9 +67,11 @@ describe("debounceMicrotask", () => {
 
     debounced();
 
-    await Promise.resolve().then();
+    await Promise.resolve();
 
     debounced();
+
+    await Promise.resolve();
 
     assertSpyCalls(fn, 2);
   });
