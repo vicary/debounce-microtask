@@ -45,6 +45,29 @@ debounced("a");
 debounced("b"); // Throws
 ```
 
+### limitAction
+
+Specifies the action to take when the debounce limit is reached.
+
+Possible values are `throw`, `ignore`, and `invoke`.
+
+Defaults to `throw`.
+
+```typescript
+import { debounceMicrotask } from "@vicary/debounce-microtask";
+
+const debounced = debounceMicrotask(
+  (text: string) => {
+    console.log("debounced", text);
+  },
+  { limitAction: "throw" },
+);
+
+debounced("a");
+
+debounced("b"); // Throws
+```
+
 ### updateArguments
 
 Updates the calling arguments to the latest invocation.
@@ -68,6 +91,32 @@ debounced("c");
 await Promise.resolve();
 
 // Prints "debounced c"
+```
+
+### promise
+
+Returns a promisified debounce function, the promise resolves when the specified
+function is called.
+
+```typescript
+import { debounceMicrotask } from "@vicary/debounce-microtask/promise";
+
+const debounced = debounceMicrotask(
+  (text: string) => {
+    console.log("debounced", text);
+  },
+  {
+    updateArguments: true,
+  },
+);
+
+await Promise.all([
+  debounced("a"),
+  debounced("b"),
+  debounced("c"),
+]);
+
+// Only prints "debounced c"
 ```
 
 ## Contributing

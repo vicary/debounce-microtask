@@ -76,7 +76,7 @@ export const debounceMicrotask = <TArgs extends unknown[], TReturn>(
 
         enqueue(dequeue);
       } else {
-        debounceLimit = 0;
+        debounceLimit = options?.debounceLimit ?? 1000;
         fn(...currentArgs!);
       }
     }

@@ -75,4 +75,19 @@ describe("debounceMicrotaskPromise", () => {
 
     assertSpyCalls(fn, 2);
   });
+
+  it("should renew the promise after first settle", async () => {
+    const fn = spy(() => {});
+    const debounced = debounceMicrotaskPromise(fn);
+
+    debounced();
+
+    await debounced();
+
+    debounced();
+
+    await debounced();
+
+    assertSpyCalls(fn, 2);
+  });
 });
