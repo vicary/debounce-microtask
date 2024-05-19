@@ -1,4 +1,6 @@
-type Function<TArgs extends unknown[], TReturn> = (...args: TArgs) => TReturn;
+export type Function<TArgs extends unknown[], TReturn> = (
+  ...args: TArgs
+) => TReturn;
 
 const enqueue = typeof queueMicrotask === "function"
   ? queueMicrotask
@@ -15,6 +17,12 @@ export type Options = {
    * @default 1000
    */
   debounceLimit?: number;
+
+  /**
+   * Actions to take when the debounce limit is reached.
+   */
+  limitAction?: "ignore" | "invoke" | "throw";
+
   /**
    * Enable this to update the arguments of the function to the latest
    * invocation, it uses the arguments from the first invocation by default.
@@ -47,7 +55,15 @@ export const debounceMicrotask = <TArgs extends unknown[], TReturn>(
     if (queued) return;
 
     if (debounceLimit-- <= 0) {
-      throw new Error(`Maximum debounce limit reached.`);
+      switch (options?.limitAction) {
+        case "ignore":
+          return;
+        case "invoke":
+          return fn(...currentArgs!);
+        case "throw":
+        default:
+          throw new Error(`Maximum debounce limit reached.`);
+      }
     }
 
     queued = true;
@@ -60,6 +76,7 @@ export const debounceMicrotask = <TArgs extends unknown[], TReturn>(
 
         enqueue(dequeue);
       } else {
+        debounceLimit = 0;
         fn(...currentArgs!);
       }
     }
