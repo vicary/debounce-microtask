@@ -1,16 +1,11 @@
-import { build, type EntryPoint } from "@deno/dnt";
+// Bundle mod.ts into both ESM and CJS format.
+import { build } from "@deno/dnt";
 import pkg from "./deno.json" with { type: "json" };
 
 await Deno.remove("./dnt", { recursive: true }).catch(() => {});
 
 await build({
-  entryPoints: [
-    ...Object.entries(pkg.exports).map(([name, path]): EntryPoint => ({
-      kind: "export",
-      name,
-      path,
-    })),
-  ],
+  entryPoints: ["./mod.ts"],
   outDir: "./dnt",
   shims: {
     deno: "dev",
@@ -46,4 +41,5 @@ await build({
     await Deno.copyFile("LICENSE", "dnt/LICENSE");
     await Deno.copyFile("README.md", "dnt/README.md");
   },
+  typeCheck: "both",
 });

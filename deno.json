@@ -1,7 +1,7 @@
 {
   "name": "@vicary/debounce-microtask",
   "description": "Debounce a function using microtasks instead of timers.",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "exports": {
     ".": "./src/DebounceMicrotask.ts",
     "./promise": "./src/DebounceMicrotaskPromise.ts"
