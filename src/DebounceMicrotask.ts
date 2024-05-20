@@ -1,3 +1,10 @@
+/**
+ * @module
+ *
+ * A simple utility to debounce a function to the next microtask.
+ */
+
+/** A generic typed function. */
 export type Function<TArgs extends unknown[], TReturn> = (
   ...args: TArgs
 ) => TReturn;

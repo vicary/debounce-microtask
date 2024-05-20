@@ -5,6 +5,13 @@ import {
 } from "./DebounceMicrotask.ts";
 
 /**
+ * @module
+ *
+ * A simple utility to debounce a function to the next microtask, returning
+ * promises that resolves with the next execution.
+ */
+
+/**
  * Execute the function in the next microtask, if the function is called again
  * later in the event loop, push back the execution one more microtask
  * in the future.
