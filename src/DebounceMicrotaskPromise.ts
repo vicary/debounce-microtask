@@ -26,6 +26,7 @@ export const debounceMicrotask = <TArgs extends unknown[], TReturn>(
 ): Function<TArgs, Promise<TReturn>> => {
   let resolve: (result: TReturn) => void;
   let reject: (error: Error) => void;
+  let running = false;
   let settled = false;
 
   let promise = new Promise<TReturn>((res, rej) => {
@@ -34,11 +35,15 @@ export const debounceMicrotask = <TArgs extends unknown[], TReturn>(
   });
 
   const debounceFn = debounce((...args: TArgs) => {
+    if (running) return;
+    running = true;
+
     try {
       resolve(fn(...args));
     } catch (e) {
       reject(e);
     } finally {
+      running = false;
       settled = true;
     }
   }, options);
